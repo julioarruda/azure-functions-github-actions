@@ -1,2 +1,3 @@
-# GitHub Template
-GitHub template for all my future GitHub repos
+# Deploying Azure Functions with GitHub Actions
+
+Sample how to deploy Azure Functions with GitHub Actions.
