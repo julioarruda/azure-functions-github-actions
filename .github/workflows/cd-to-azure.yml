@@ -35,7 +35,7 @@ jobs:
       name: Deploy to DEV environment
       needs: [build]
       env:
-        AZURE_FUNCTIONAPP_NAME: azure-functions-github-actions
+        AZURE_FUNCTIONAPP_NAME: azure-functions-github-actions-dev
       environment:
         name: dev-environment
       runs-on: ubuntu-latest
@@ -50,4 +50,24 @@ jobs:
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
           package: ${{ env.OUTPUT_PATH }}
-          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.AZURE_DEV_PUBLISH_PROFILE }}
+  deploy_to_tst:
+      name: Deploy to TEST environment
+      needs: [deploy_to_dev]
+      env:
+        AZURE_FUNCTIONAPP_NAME: azure-functions-github-actions-test
+      environment:
+        name: test-environment
+      runs-on: ubuntu-latest
+      steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v1
+        with:
+            name: ${{ env.ARTIFACT_NAME }}
+            path: ${{ env.OUTPUT_PATH }}
+      - name: Deploy to Azure
+        uses: Azure/functions-action@v1
+        with:
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+          package: ${{ env.OUTPUT_PATH }}
+          publish-profile: ${{ secrets.AZURE_TST_PUBLISH_PROFILE }}
