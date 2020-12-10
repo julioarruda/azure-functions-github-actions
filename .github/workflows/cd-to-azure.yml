@@ -31,11 +31,14 @@ jobs:
       with:
           name: ${{ env.ARTIFACT_NAME }}
           path: ${{ env.OUTPUT_PATH }}
-  deploy:
-      runs-on: ubuntu-latest
+  deploy_to_dev:
+      name: Deploy to DEV environment
       needs: [build]
       env:
         AZURE_FUNCTIONAPP_NAME: azure-functions-github-actions
+      environment:
+        name: dev-environment
+      runs-on: ubuntu-latest
       steps:
       - name: Download Artifact
         uses: actions/download-artifact@v1
