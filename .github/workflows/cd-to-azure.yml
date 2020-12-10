@@ -38,6 +38,7 @@ jobs:
         AZURE_FUNCTIONAPP_NAME: azure-functions-github-actions-dev
       environment:
         name: dev-environment
+        url: ${{ steps.deploy-to-azure.outputs.app-url }}
       runs-on: ubuntu-latest
       steps:
       - name: Download Artifact
@@ -46,6 +47,7 @@ jobs:
             name: ${{ env.ARTIFACT_NAME }}
             path: ${{ env.OUTPUT_PATH }}
       - name: Deploy to Azure
+        id: deploy-to-azure
         uses: Azure/functions-action@v1
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
@@ -58,6 +60,7 @@ jobs:
         AZURE_FUNCTIONAPP_NAME: azure-functions-github-actions-test
       environment:
         name: test-environment
+        url: ${{ steps.deploy-to-azure.outputs.app-url }}
       runs-on: ubuntu-latest
       steps:
       - name: Download Artifact
@@ -66,6 +69,7 @@ jobs:
             name: ${{ env.ARTIFACT_NAME }}
             path: ${{ env.OUTPUT_PATH }}
       - name: Deploy to Azure
+        id: deploy-to-azure
         uses: Azure/functions-action@v1
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
