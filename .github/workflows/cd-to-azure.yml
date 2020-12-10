@@ -38,7 +38,7 @@ jobs:
         AZURE_FUNCTIONAPP_NAME: azure-functions-github-actions-dev
       environment:
         name: dev-environment
-        url: ${{ steps.deploy-to-azure.outputs.app-url }}
+        url: ${{ steps.deploy-to-azure.outputs.app-url }}/api/v1/xbox
       runs-on: ubuntu-latest
       steps:
       - name: Download Artifact
@@ -60,7 +60,7 @@ jobs:
         AZURE_FUNCTIONAPP_NAME: azure-functions-github-actions-test
       environment:
         name: test-environment
-        url: ${{ steps.deploy-to-azure.outputs.app-url }}
+        url: ${{ steps.deploy-to-azure.outputs.app-url }}/api/v1/xbox
       runs-on: ubuntu-latest
       steps:
       - name: Download Artifact
