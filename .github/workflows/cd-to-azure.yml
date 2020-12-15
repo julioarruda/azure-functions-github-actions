@@ -1,6 +1,4 @@
 # Learn more about it on https://github.com/Azure/functions-action
-# Inspiration was found in https://www.aaron-powell.com/posts/2020-01-10-deploying-azure-functions-with-github-actions/
-
 name: Build & Deploy Azure Function
 
 on:
@@ -52,7 +50,7 @@ jobs:
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
           package: ${{ env.OUTPUT_PATH }}
-          publish-profile: ${{ secrets.AZURE_DEV_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
   deploy_to_tst:
       name: Deploy to TEST environment
       needs: [deploy_to_dev]
@@ -74,4 +72,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
           package: ${{ env.OUTPUT_PATH }}
-          publish-profile: ${{ secrets.AZURE_TST_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
